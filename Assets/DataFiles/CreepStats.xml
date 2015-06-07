@@ -4,7 +4,14 @@
     <CreepStats>
       <creepType>basic</creepType>
       <creepName>Basic Creep</creepName>
-      <spawnTime>0</spawnTime>
+      <spawnTime>2</spawnTime>
+      <health>10</health>
+      <moveSpeed>8</moveSpeed>
+    </CreepStats>
+    <CreepStats>
+      <creepType>basic</creepType>
+      <creepName>NEW FABULOUS Creep</creepName>
+      <spawnTime>2</spawnTime>
       <health>10</health>
       <moveSpeed>8</moveSpeed>
     </CreepStats>

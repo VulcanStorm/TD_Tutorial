@@ -15,6 +15,7 @@ public class CreepManager : MonoBehaviour {
 	void Start () {
 		singleton = this;
 		CreepStatsFile.CheckForFile();
+		creepStats = CreepStatsFile.LoadCreepStats();
 	}
 
 	public static Creep GetCreepWithID (int id){
