@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 34aae811cff98a2468fffccd3191741a
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - currentTower: {instanceID: 0}
+  - selectedMat: {fileID: 2100000, guid: f4744f37c1ffd2048b073e39cc501d1b, type: 2}
+  - hoverMat: {fileID: 2100000, guid: f09aebea80c280d42988197c2094368f, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
