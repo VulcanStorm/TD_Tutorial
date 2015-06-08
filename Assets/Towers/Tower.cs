@@ -31,7 +31,8 @@ public class Tower : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		sqrRange = range * range;
+		sqrRange = (range) * (range);
+		rangeTrigger.GetComponent<SphereCollider>().radius = (range-3);
 	}
 	
 	// Update is called once per frame
@@ -52,21 +53,28 @@ public class Tower : MonoBehaviour {
 			// <<<< CHECK TARGET RANGE >>>>
 			// check if the target is in range
 			// calculate the range
-			currentCreep = CreepManager.GetCreepWithID(i);
-			rangeToTarget = (currentTarget.creepTransform.position - rangeTrigger.position).sqrMagnitude;
+			currentCreep = CreepManager.GetCreepWithID(targets[i]);
+			rangeToTarget = (currentCreep.creepTransform.position - rangeTrigger.position).sqrMagnitude;
+			//print (rangeToTarget);
+			//print (sqrRange);
 			// remove the target if it is not in range
 			if(rangeToTarget > sqrRange){
 				// check if our current target has just moved out of range
-				/*if(targets[i] == currentTarget.creepId){
-					// reset our targets
-					hasTarget = false;
-					currentTarget = null;
-				}*/
+				if(currentTarget != null){
+					if(targets[i] == currentTarget.creepId){
+						// reset our targets
+						hasTarget = false;
+						currentTarget = null;
+						print ("no more target");
+					}
+				}
 				targets.RemoveAt(i);
+				
 			}
 			// TODO CHANGE THIS, this is only temporary
 			// it should raycast to the target
 			else if(hasTarget == false){
+				print("NO TARGET DETECTED BUT ONE IS IN RANGE");
 				currentTarget = CreepManager.GetCreepWithID(targets[i]);
 				hasTarget = true;
 			}

@@ -59,6 +59,7 @@ public static class CreepStatsFile{
 		// basic creep
 		statsToSave.creepArray[0].creepType = CreepType.basic;
 		statsToSave.creepArray[0].creepName = "Basic Creep";
+		statsToSave.creepArray[0].prefabIndex = 0;
 		statsToSave.creepArray[0].spawnTime = 2;
 		statsToSave.creepArray[0].health = 10;
 		statsToSave.creepArray[0].moveSpeed = 8;
