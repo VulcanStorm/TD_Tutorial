@@ -42,12 +42,62 @@ public class Tower : MonoBehaviour {
 
 	void FixedUpdate () {
 		// check enemy range method
-		CheckRange ();
+		CheckRangeNEW ();
 		AimAtTarget ();
+	}
+
+	public virtual void CheckRangeNEW(){
+		
+		// manage the current target array
+		for(int i=0;i<targets.Count;i++){
+			
+			// <<<< CHECK TARGET RANGE >>>>
+			// check if the target is in range
+			// calculate the range
+			
+			// check if the creep is dead
+			if(CreepManager.IsCreepAlive(targets[i]) == false){
+				// check if it is our current target
+				if(targets[i] == currentTarget.creepId){
+					currentTarget = null;
+					hasTarget = false;
+				}
+				targets.RemoveAt(i);
+			}
+			// creep is alive
+			else{
+				// check the range to the creep
+				
+				currentCreep = CreepManager.GetCreepWithID(targets[i]);
+				rangeToTarget = (currentCreep.creepTransform.position - rangeTrigger.position).sqrMagnitude;
+				// remove the target if it is not in range
+				if(rangeToTarget > sqrRange){
+					if(targets[i] == currentTarget.creepId){
+						currentTarget = null;
+						hasTarget = false;
+					}
+					targets.RemoveAt(i);
+				}
+			}
+		}
+		
+		// find a new target
+		if(hasTarget == false){
+			// check for possible targets
+			if(targets.Count != 0){
+				// sort the current targets based on distance travelled
+				// choose the one that has got furthest
+				targets = ShuttleSort.singleton.SortTowerTargets(targets);
+				currentTarget = CreepManager.GetCreepWithID(targets[0]);
+				hasTarget = true;
+			}
+		}
+		
 	}
 
 	public virtual void CheckRange () {
 		// iterate over our targets
+		// sort our targets
 		for(int i=0;i<targets.Count;i++){
 
 			// <<<< CHECK TARGET RANGE >>>>

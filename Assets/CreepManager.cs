@@ -17,9 +17,15 @@ public class CreepManager : MonoBehaviour {
 	static CreepManager singleton;
 
 	// Use this for initialization
+	
+	void Awake() {
+		ShuttleSort.singleton = new ShuttleSort();
+	}
+	
 	void Start () {
 		singleton = this;
 		NextWave(currentCreepWave);
+		
 	}
 
 	public static Creep GetCreepWithID (int id){
@@ -29,6 +35,10 @@ public class CreepManager : MonoBehaviour {
 	public static void CreepDied(int id){
 		singleton.creepList[id].isAlive = false;
 		singleton.creepList[id].creep = null;
+	}
+
+	public static void SetCreepDist (int id, float dist) {
+		singleton.creepList [id].creepDist = dist;
 	}
 	
 	public static CreepStats GetCreepStatsWithCreepType (CreepType searchType) {
@@ -63,6 +73,7 @@ public class CreepManager : MonoBehaviour {
 		for(int i=0;i<wave.waveToSpawn.Count;i++){
 			totalCreeps += wave.waveToSpawn[i].numToSpawn;
 		}
+		print (totalCreeps + " creeps are going to spawn");
 		creepList = new CreepData[totalCreeps];
 		
 		// iterate over everything to spawn

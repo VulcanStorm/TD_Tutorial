@@ -13,7 +13,11 @@ public class Creep : MonoBehaviour {
 	public sbyte turnDir;
 	public int health = 0;
 	int sqrDist;
-	Vector3 targetDist;
+	float targetDist;
+	public float totalDist;
+	float totalTowerDist;
+	
+	float distToNextTower;
 	Vector3 localTargetPos;
 	Transform targetTransform;
 	public Node targetNode;
@@ -62,17 +66,32 @@ public class Creep : MonoBehaviour {
 	}
 	
 	void CheckTargetDist () {
-		targetDist = (targetTransform.position - creepTransform.position);
-		
-		if (targetDist.sqrMagnitude < sqrDist) {
+
+		targetDist = (targetTransform.position - creepTransform.position).sqrMagnitude;
+
+		// set the total distance travelled
+		totalDist = totalTowerDist + (distToNextTower - targetDist);
+
+
+		CreepManager.SetCreepDist (creepId, totalDist);
+
+
+		if (targetDist < sqrDist) {
+
 			// change node
 			targetNode = targetNode.nextNode;
+
+			
 			if(targetNode == null){
 				CreepManager.CreepDied(creepId);
 				Destroy (gameObject);
 			}
 			else{
+				// set the new target object
 				targetTransform = targetNode.nodeTransform;
+				// get the distance to the next tower
+				totalTowerDist += distToNextTower;
+				distToNextTower = targetNode.distanceFromLastNode;
 			}
 		}
 		
