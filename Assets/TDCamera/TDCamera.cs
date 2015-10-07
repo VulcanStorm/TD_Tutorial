@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Camera_Control : MonoBehaviour {
+public class TDCamera : MonoBehaviour {
 
 	public Transform target = null;
 	Transform thisTransform;
